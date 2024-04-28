@@ -14,18 +14,18 @@ Download and install XAMPP from https://www.apachefriends.org/index.html. Ensure
 Extract the contents of the provided zip file into the htdocs directory of your XAMPP installation.
 
 ## 3. Database Setup
-1. Start the Apache and MySQL services via the XAMPP Control Panel.
-2. Open a web browser and navigate to http://localhost/phpmyadmin.
-3. Create a new database named csrf_demo.
-4. Import the Database:
+### 1. Start the Apache and MySQL services via the XAMPP Control Panel.
+### 2. Open a web browser and navigate to http://localhost/phpmyadmin.
+### 3. Create a new database named csrf_demo.
+### 4. Import the Database:
 - Select the csrf_demo database in phpMyAdmin.
 - Click on the "Import" tab at the top.
 - Choose the csrf_demo.sql file provided in your project folder.
 - Click on "Go" to import the database. This will set up your tables and initial data.
-# 4. Configuration Check
+## 4. Configuration Check
 Verify that the database configuration in db.php matches your XAMPP MySQL settings, typically username: root and password: ``, unless you have configured it differently.
 
-## Running the Application
+# Running the Application
 ### 1. Access the Application:
 - Navigate to http://localhost/csrf_demo/index.php in your web browser.
 - Log in using the credentials provided (if specific users are included in the csrf_demo.sql, use those credentials).
@@ -34,7 +34,7 @@ Verify that the database configuration in db.php matches your XAMPP MySQL settin
 ### 3. Verify the Attack:
 - Return to the dashboard tab and refresh the page to see if the email has been changed, indicating a successful CSRF attack.
 
-## Applying the Patch
+# Applying the Patch
 ### 1. Enable CSRF Protection:
 - Open the dashboard.php file.
 - Change $csrf_protection = false; to $csrf_protection = true;.
