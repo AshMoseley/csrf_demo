@@ -1,11 +1,11 @@
 # CSRF_demo Web Application
 ## Overview
-This web application demonstrates a Cross-Site Request Forgery (CSRF) vulnerability. The project provides both an example of how CSRF can be exploited and how it can be mitigated within a controlled environment. This is part of the CSCM28 coursework on Security Vulnerabilities and Penetration Testing.
+This web application demonstrates a Cross-Site Request Forgery (CSRF) vulnerability. The project provides both an example of how CSRF can be exploited and how it can be mitigated within a controlled environment.
 
 ## Prerequisites
 - XAMPP (or any web server stack that includes Apache, MySQL, PHP)
 - A modern web browser (e.g., Chrome, Firefox)
-- 
+
 # Setup Instructions
 ### 1. Install XAMPP
 Download and install XAMPP from https://www.apachefriends.org/index.html. Ensure that Apache and MySQL are selected during the installation process.
