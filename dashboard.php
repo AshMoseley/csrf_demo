@@ -18,9 +18,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }
 
 $username = $_SESSION['username'];
-$result = $conn->query("SELECT email FROM users WHERE username='$username'");
-$row = $result->fetch_assoc();
-$current_email = $row['email'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($csrf_protection) {
@@ -29,13 +26,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             die('CSRF token validation failed');
         }
     }
-    
+
     $new_email = $conn->real_escape_string($_POST['email']);
     $conn->query("UPDATE users SET email='{$new_email}' WHERE username='$username'");
-    $message = "Email changed to: " . htmlspecialchars($new_email);
-} else {
-    $message = "Your current email is: " . htmlspecialchars($current_email);
+    // Redirect to the same page to avoid re-submitting the form on refresh
+    header("Location: dashboard.php");
+    exit;
 }
+
+// Fetch the current email from the database every time the page is loaded
+$result = $conn->query("SELECT email FROM users WHERE username='$username'");
+$row = $result->fetch_assoc();
+$current_email = $row['email'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="col-md-6 offset-md-3">
             <h2>Dashboard</h2>
             <p class="alert alert-success">You are logged in as <strong><?php echo htmlspecialchars($username); ?></strong></p>
-            <p class="alert alert-info"><?php echo $message; ?></p>
+            <p class="alert alert-info">Your current email is: <strong><?php echo htmlspecialchars($current_email); ?></strong></p>
             <form method="POST" action="dashboard.php">
                 <div class="form-group">
                     <label for="email">New Email:</label>
