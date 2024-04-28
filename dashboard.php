@@ -37,18 +37,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $message = "Your current email is: " . htmlspecialchars($current_email);
 }
 ?>
-<html>
-<head><title>Dashboard</title></head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+</head>
 <body>
-<h2>Dashboard</h2>
-<p>You are logged in!</p>
-<p><?php echo $message; ?></p>
-<form method="POST" action="dashboard.php">
-    <?php if ($csrf_protection) { ?>
-        <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
-    <?php } ?>
-    New Email: <input type="text" name="email"><br>
-    <input type="submit" value="Change Email">
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2>Dashboard</h2>
+            <p class="alert alert-success">You are logged in as <strong><?php echo htmlspecialchars($username); ?></strong></p>
+            <p class="alert alert-info"><?php echo $message; ?></p>
+            <form method="POST" action="dashboard.php">
+                <div class="form-group">
+                    <label for="email">New Email:</label>
+                    <input type="email" class="form-control" name="email" required>
+                </div>
+                <?php if ($csrf_protection) { ?>
+                    <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
+                <?php } ?>
+                <button type="submit" class="btn btn-primary">Change Email</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

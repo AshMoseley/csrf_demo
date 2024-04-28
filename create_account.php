@@ -1,19 +1,21 @@
 <?php
-session_start();
 include 'db.php';  // Include the database connection
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
-    $username = $conn->real_escape_string($_POST['username']);
-    $password = $conn->real_escape_string($_POST['password']);
+$registration_error = '';
 
-    $result = $conn->query("SELECT * FROM users WHERE username='$username' AND password='$password'");
-    if ($result->num_rows == 1) {
-        $_SESSION['logged_in'] = true;
-        $_SESSION['username'] = $username;
-        header("Location: dashboard.php");
-        exit;
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username']) && isset($_POST['password'])) {
+    $username = $conn->real_escape_string($_POST['username']);
+    $password = $conn->real_escape_string($_POST['password']);  // In a real application, password should be hashed
+
+    // Check if username already exists
+    $checkUser = $conn->query("SELECT * FROM users WHERE username='$username'");
+    if ($checkUser->num_rows > 0) {
+        $registration_error = 'Username already exists. Please choose another.';
     } else {
-        $login_error = "Invalid username or password.";
+        // Insert new user into the database
+        $conn->query("INSERT INTO users (username, password) VALUES ('$username', '$password')");
+        header("Location: index.php"); // Redirect to login page after successful registration
+        exit;
     }
 }
 ?>
@@ -22,7 +24,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Create Account</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body { padding-top: 20px; }
@@ -31,9 +33,9 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-md-4 offset-md-4">
-            <h2>Login</h2>
-            <form method="POST" action="index.php">
+        <div class="col-md-6 offset-md-3">
+            <h2>Create Account</h2>
+            <form method="POST" action="create_account.php">
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" class="form-control" name="username" required>
@@ -42,10 +44,10 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                     <label for="password">Password:</label>
                     <input type="password" class="form-control" name="password" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-success">Create Account</button>
             </form>
-            <?php if (!empty($login_error)) { ?>
-                <div class="alert alert-danger mt-3"><?php echo $login_error; ?></div>
+            <?php if ($registration_error) { ?>
+                <div class="alert alert-danger mt-3"><?php echo $registration_error; ?></div>
             <?php } ?>
         </div>
     </div>
