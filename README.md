@@ -14,10 +14,10 @@ Download and install XAMPP from https://www.apachefriends.org/index.html. Ensure
 Extract the contents of the provided zip file into the htdocs directory of your XAMPP installation.
 
 ## 3. Database Setup
-### 1. Start the Apache and MySQL services via the XAMPP Control Panel.
-### 2. Open a web browser and navigate to http://localhost/phpmyadmin.
-### 3. Create a new database named csrf_demo.
-### 4. Import the Database:
+1. Start the Apache and MySQL services via the XAMPP Control Panel.
+2. Open a web browser and navigate to http://localhost/phpmyadmin.
+3. Create a new database named csrf_demo.
+4. Import the Database:
 - Select the csrf_demo database in phpMyAdmin.
 - Click on the "Import" tab at the top.
 - Choose the csrf_demo.sql file provided in your project folder.
