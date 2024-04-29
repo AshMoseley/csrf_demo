@@ -1,6 +1,6 @@
 # CSRF_demo Web Application
 ## Overview
-This web application demonstrates a Cross-Site Request Forgery (CSRF) vulnerability. The project provides both an example of how CSRF can be exploited and how it can be mitigated within a controlled environment.
+This web application demonstrates a Cross-Site Request Forgery (CSRF) vulnerability. This provides both an example of how CSRF can be exploited and how it can be mitigated in a controlled environment.
 
 ## Prerequisites
 - A Windows machine
