@@ -1,20 +1,19 @@
 <?php
-include 'db.php';  // Include the database connection
+include 'db.php';  
 
 $registration_error = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username']) && isset($_POST['password'])) {
     $username = $conn->real_escape_string($_POST['username']);
-    $password = $conn->real_escape_string($_POST['password']);  // In a real application, password should be hashed
+    $password = $conn->real_escape_string($_POST['password']); 
 
     // Check if username already exists
     $checkUser = $conn->query("SELECT * FROM users WHERE username='$username'");
     if ($checkUser->num_rows > 0) {
         $registration_error = 'Username already exists. Please choose another.';
     } else {
-        // Insert new user into the database
         $conn->query("INSERT INTO users (username, password) VALUES ('$username', '$password')");
-        header("Location: index.php"); // Redirect to login page after successful registration
+        header("Location: index.php"); 
         exit;
     }
 }

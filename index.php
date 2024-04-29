@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db.php';  // Include the database connection
+include 'db.php';  
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
     $username = $conn->real_escape_string($_POST['username']);

@@ -29,12 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $new_email = $conn->real_escape_string($_POST['email']);
     $conn->query("UPDATE users SET email='{$new_email}' WHERE username='$username'");
-    // Redirect to the same page to avoid re-submitting the form on refresh
     header("Location: dashboard.php");
     exit;
 }
 
-// Fetch the current email from the database every time the page is loaded
 $result = $conn->query("SELECT email FROM users WHERE username='$username'");
 $row = $result->fetch_assoc();
 $current_email = $row['email'];

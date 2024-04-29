@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "root";  // default XAMPP username
-$password = "";      // default XAMPP password is empty
+$username = "root";  
+$password = "";      
 $dbname = "csrf_demo";
 
 // Create connection
