@@ -5,38 +5,48 @@ include 'db.php';
 // CSRF Protection Toggle
 $csrf_protection = false;  // Change to true to enable CSRF protection
 
+// CSRF token generation if not already done
 if ($csrf_protection) {
     if (empty($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
+    // Store the token in a variable for easy access
     $csrf_token = $_SESSION['csrf_token'];
 }
 
+// Check if user is logged in
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header("Location: index.php");
     exit;
 }
 
+// Get the username from the session
 $username = $_SESSION['username'];
 
+// Check if the request method is POST, which indicates that the form has been submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($csrf_protection) {
-        // CSRF Protection Check
+        // Check if the submitted token matches the one in the session
         if (!isset($_POST['csrf_token']) || !hash_equals($_POST['csrf_token'], $_SESSION['csrf_token'])) {
             die('CSRF token validation failed');
         }
     }
-
+    // Prevent SQL injection by escaping special characters
     $new_email = $conn->real_escape_string($_POST['email']);
+    // Update user's email
     $conn->query("UPDATE users SET email='{$new_email}' WHERE username='$username'");
     header("Location: dashboard.php");
     exit;
 }
 
+// Get the current email
 $result = $conn->query("SELECT email FROM users WHERE username='$username'");
 $row = $result->fetch_assoc();
+
+// Store the current email in a variable for easy access
 $current_email = $row['email'];
 
+// HTML for displaying page
 ?>
 <!DOCTYPE html>
 <html lang="en">

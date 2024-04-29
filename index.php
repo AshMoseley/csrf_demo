@@ -2,17 +2,22 @@
 session_start();
 include 'db.php';  
 
+// Check if the login form has been submitted
 if (isset($_POST['username']) && isset($_POST['password'])) {
+    // Prevent SQL injection by escaping special characters
     $username = $conn->real_escape_string($_POST['username']);
     $password = $conn->real_escape_string($_POST['password']);
 
+    // check if the credentials are correct
     $result = $conn->query("SELECT * FROM users WHERE username='$username' AND password='$password'");
+    // If one matching record is found, the login is successful
     if ($result->num_rows == 1) {
         $_SESSION['logged_in'] = true;
         $_SESSION['username'] = $username;
         header("Location: dashboard.php");
         exit;
     } else {
+        // If login is not successful, set an error message
         $login_error = "Invalid username or password.";
     }
 }

