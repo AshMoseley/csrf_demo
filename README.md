@@ -35,10 +35,10 @@ If you have set a password for MySQL, set it as the value for the $password vari
 # Running the Application
 ### 1. Access the Application:
 - Navigate to http://localhost/csrf_demo/index.php in your web browser.
-- Log in using the credentials provided (if specific users are included in the csrf_demo.sql, use those credentials).
+- Log in using the credentials in the mySQL database (user=admin, password=password).
 ### 2. Perform the CSRF Attack:
 - Open a new tab and navigate to http://localhost/csrf_demo/malicious.html to simulate a CSRF attack which attempts to change the user's email without their knowledge.
-- This runs a script containing a POST request that submits an email of our choosing into the email submission box.
+- This runs a script containing a POST request that submits an email into the email submission box.
 - In a real life example, this malicious link could be sent to unsuspecting users of a system.
 ### 3. Verify the Success of the Attack:
 - Return to the dashboard tab and refresh the page to see if the email has been changed. If so, the attack was successful.
