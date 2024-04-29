@@ -3,6 +3,7 @@
 This web application demonstrates a Cross-Site Request Forgery (CSRF) vulnerability. The project provides both an example of how CSRF can be exploited and how it can be mitigated within a controlled environment.
 
 ## Prerequisites
+- A Windows machine
 - XAMPP (or any web server stack that includes Apache, MySQL, PHP)
 - A modern web browser (e.g., Chrome, Firefox)
 
@@ -11,28 +12,35 @@ This web application demonstrates a Cross-Site Request Forgery (CSRF) vulnerabil
 Download and install XAMPP from https://www.apachefriends.org/index.html. Ensure that Apache and MySQL are selected during the installation process.
 
 ## 2. Project Files
-Extract the contents of the provided zip file into the htdocs directory of your XAMPP installation.
+Move the contents of the project zip file into the htdocs directory of your XAMPP installation. This can be found at C:\xampp.
 
 ## 3. Database Setup
 1. Start the Apache and MySQL services via the XAMPP Control Panel.
 2. Open a web browser and navigate to http://localhost/phpmyadmin.
 3. Create a new database named csrf_demo.
-4. Import the Database:
-- Select the csrf_demo database in phpMyAdmin.
-- Click on the "Import" tab at the top.
-- Choose the csrf_demo.sql file provided in your project folder.
-- Click on "Go" to import the database. This will set up your tables and initial data.
+    - Navigate to the sidebar on the left.
+    - Click the "New" option at the top of the list of databases.
+    - Enter "csrf_demo" in the "Database name" field and click create.
+4. Import the Database Contents:
+    - Select the csrf_demo database from the sidebar list in phpMyAdmin.
+    - Click on the "Import" tab at the top of the page.
+    - Click "Browse...", then choose the csrf_demo.sql file provided in this project folder.
+    - Click on "Go" to import the database. This will set up your tables and initial data.
 ## 4. Configuration Check
 Verify that the database configuration in db.php matches your XAMPP MySQL settings, typically username: root and password: ``, unless you have configured it differently.
+    - To view your MySQL settings, click "config" under the actions of XAMPP's MySQL module.
+    - Select the option "my.ini" to open the configuration file.
+If you have set a password for MySQL, set it as the value for the $password variable in db.php.
 
 # Running the Application
 ### 1. Access the Application:
 - Navigate to http://localhost/csrf_demo/index.php in your web browser.
 - Log in using the credentials provided (if specific users are included in the csrf_demo.sql, use those credentials).
 ### 2. Perform the CSRF Attack:
-- Open a new tab and navigate to http://localhost/csrf_demo/malicious.html to simulate the CSRF attack which attempts to change the user's email without their knowledge.
-### 3. Verify the Attack:
-- Return to the dashboard tab and refresh the page to see if the email has been changed, indicating a successful CSRF attack.
+- Open a new tab and navigate to http://localhost/csrf_demo/malicious.html to simulate a CSRF attack which attempts to change the user's email without their knowledge.
+- This runs a script containing a POST request that submits an email of our choosing into the email submission box.
+### 3. Verify the Success of the Attack:
+- Return to the dashboard tab and refresh the page to see if the email has been changed. If so, the attack was successful.
 
 # Applying the Patch
 ### 1. Enable CSRF Protection:
